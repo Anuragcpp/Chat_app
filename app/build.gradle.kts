@@ -1,7 +1,9 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
+    id ("com.google.dagger.hilt.android")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -69,5 +71,22 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // dependencies for dagger-hilt with ksp
+    implementation ("com.google.dagger:hilt-android:2.52")
+    kapt ("com.google.dagger:hilt-compiler:2.52")
+
+    // For instrumentation tests
+    androidTestImplementation  ("com.google.dagger:hilt-android-testing:2.52")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:2.52")
+
+    // For local unit tests
+    testImplementation ("com.google.dagger:hilt-android-testing:2.52")
+    kaptTest ("com.google.dagger:hilt-compiler:2.52")
+
+    //dependencies for navigation
+    val nav_version = "2.8.0"
+
+    // Jetpack Compose integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
 
 }
