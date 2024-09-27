@@ -1,5 +1,6 @@
 package com.example.livechat.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -22,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.livechat.R
+import com.example.livechat.utality.checkEmptyFields
 import com.example.livechat.utality.endpoints.DistinationScreen
 import com.example.livechat.utality.navigateTo
 import com.example.livechat.viewModel.LiveChatViewModel
@@ -61,6 +65,7 @@ fun SignUpScreen(
             var passwordState by remember { mutableStateOf(TextFieldValue()) }
             var emailState by remember { mutableStateOf(TextFieldValue()) }
             val focus = LocalFocusManager.current
+            val context = LocalContext.current
 
 
 
@@ -106,7 +111,24 @@ fun SignUpScreen(
             )
             
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    if (checkEmptyFields(
+                        name = nameState.text,
+                        email = emailState.text,
+                        number = numberState.text,
+                        password = passwordState.text
+                    )) {
+
+                        viewModel.signUp(
+                            context = context,
+                            name = nameState.text,
+                            email = emailState.text,
+                            number = numberState.text,
+                            password = passwordState.text
+                        )
+
+                    }else Toast.makeText(context,"Fields cannot be empty",Toast.LENGTH_SHORT).show()
+                },
                 modifier = Modifier.padding(8.dp)
             ) {
                 
@@ -117,11 +139,12 @@ fun SignUpScreen(
             Text(
                 text = "Alrady a User ? Go to Login -> ",
                 color = Color.Blue,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
                     .clickable {
                         navigateTo(
-                            navController  = navController,
-                            route =  DistinationScreen.Login.route
+                            navController = navController,
+                            route = DistinationScreen.Login.route
                         )
                     }
                 )

@@ -8,3 +8,12 @@ fun navigateTo( navController: NavController,route : String) {
         launchSingleTop = true
     }
 }
+
+fun checkEmptyFields(
+    name : String,
+    email : String,
+    number : String,
+    password : String
+) : Boolean {
+    return !(name.isBlank() || email.isBlank() || number.isBlank() || password.isBlank())
+}
