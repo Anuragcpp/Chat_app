@@ -112,22 +112,7 @@ fun SignUpScreen(
             
             Button(
                 onClick = {
-                    if (checkEmptyFields(
-                        name = nameState.text,
-                        email = emailState.text,
-                        number = numberState.text,
-                        password = passwordState.text
-                    )) {
-
-                        viewModel.signUp(
-                            context = context,
-                            name = nameState.text,
-                            email = emailState.text,
-                            number = numberState.text,
-                            password = passwordState.text
-                        )
-
-                    }else Toast.makeText(context,"Fields cannot be empty",Toast.LENGTH_SHORT).show()
+                    viewModel.signup(context, email = emailState.text, password = passwordState.text)
                 },
                 modifier = Modifier.padding(8.dp)
             ) {

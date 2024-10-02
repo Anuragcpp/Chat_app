@@ -1,7 +1,6 @@
 package com.example.livechat.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,7 +15,8 @@ import com.example.livechat.viewModel.LiveChatViewModel
 fun ChatAppNavigation() {
 
     val navController = rememberNavController()
-    val viewModel = hiltViewModel<LiveChatViewModel>()
+    //val viewModel = hiltViewModel<LiveChatViewModel>()
+    val viewModel : LiveChatViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = DistinationScreen.SignUp.route) {
         composable(DistinationScreen.SignUp.route) {
